@@ -1,7 +1,7 @@
 {
   "name": "do-ut-dona-backend",
-  "version": "1.6.0",
-  "description": "Backend separato per Do Ut Dona V1.6 standalone fix logo/avatar/backend",
+  "version": "1.7.0",
+  "description": "Backend separato per Do Ut Dona V1.7 pulsanti stabili",
   "type": "module",
   "main": "server.js",
   "scripts": {
