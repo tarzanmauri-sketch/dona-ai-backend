@@ -1,7 +1,7 @@
 {
   "name": "do-ut-dona-backend",
-  "version": "1.7.3",
-  "description": "Backend Do Ut Dona v1.7.3 con Manifesto rafforzato e fetch nativo senza gzip",
+  "version": "1.8.0",
+  "description": "Backend separato per Do Ut Dona V1.8.0 chat testo + voce separata con trascrizione audio",
   "type": "module",
   "main": "server.js",
   "scripts": {
@@ -10,7 +10,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1"
   },
   "engines": {
     "node": ">=18"

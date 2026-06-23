@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import multer from "multer";
 
 // Do Ut Dona Backend V1.7.3
 // - Mantiene il fix Render/OpenAI senza SDK e senza gzip.
@@ -11,7 +12,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-const VERSION = "1.7.3";
+const VERSION = "1.8.0";
 
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || "*")
   .split(",")
@@ -30,6 +31,7 @@ app.use(cors({
 }));
 
 app.use(express.json({ limit: "1mb" }));
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 12 * 1024 * 1024 } });
 
 const DO_UT_DONA_SYSTEM_PROMPT = `
 IDENTITÀ FONDATIVA
@@ -182,6 +184,53 @@ app.post("/api/dona-chat", async (req, res) => {
       error: "Errore nel collegamento a Do Ut Dona.",
       detail: error?.message || String(error)
     });
+  }
+});
+
+
+app.post("/api/dona-transcribe", upload.single("audio"), async (req, res) => {
+  try {
+    if (!getOpenAIKey()) {
+      return res.status(500).json({ error: "OPENAI_API_KEY mancante su Render." });
+    }
+
+    if (!req.file || !req.file.buffer || req.file.buffer.length < 1000) {
+      return res.status(400).json({ error: "Audio mancante o troppo breve." });
+    }
+
+    const mimeType = req.file.mimetype || "audio/webm";
+    const originalName = req.file.originalname || "dona-voice.webm";
+    const form = new FormData();
+    const blob = new Blob([req.file.buffer], { type: mimeType });
+    form.append("file", blob, originalName);
+    form.append("model", process.env.OPENAI_TRANSCRIBE_MODEL || "gpt-4o-mini-transcribe");
+    form.append("language", "it");
+
+    const response = await fetch("https://api.openai.com/v1/audio/transcriptions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${getOpenAIKey()}`,
+        "Accept": "application/json",
+        "Accept-Encoding": "identity"
+      },
+      body: form
+    });
+
+    const raw = await response.text();
+    if (!response.ok) {
+      console.error("OpenAI transcription HTTP error:", response.status, raw);
+      let detail = raw;
+      try { detail = JSON.parse(raw)?.error?.message || raw; } catch {}
+      return res.status(response.status).json({ error: "Errore nella trascrizione voce.", detail });
+    }
+
+    let data;
+    try { data = JSON.parse(raw); } catch { data = {}; }
+    const text = String(data.text || "").trim();
+    res.json({ text, version: VERSION });
+  } catch (error) {
+    console.error("Do Ut Dona transcribe error:", error);
+    res.status(500).json({ error: "Errore nella trascrizione voce.", detail: error?.message || String(error) });
   }
 });
 
