@@ -1,7 +1,7 @@
 {
   "name": "do-ut-dona-backend",
-  "version": "1.8.0",
-  "description": "Backend separato per Do Ut Dona V1.8.0 chat testo + voce separata con trascrizione audio",
+  "version": "1.8.1",
+  "description": "Backend separato per Do Ut Dona V1.8.1 chat testo + voce separata con trascrizione audio",
   "type": "module",
   "main": "server.js",
   "scripts": {

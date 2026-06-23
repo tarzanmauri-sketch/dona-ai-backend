@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import multer from "multer";
 
-// Do Ut Dona Backend V1.7.3
+// Do Ut Dona Backend V1.8.1
 // - Mantiene il fix Render/OpenAI senza SDK e senza gzip.
 // - Rafforza il system prompt con Concept + Manifesto.
 // - Mantiene le rotte già usate dal frontend: /api/dona-chat e /api/dona-tts.
@@ -12,7 +12,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-const VERSION = "1.8.0";
+const VERSION = "1.8.1";
 
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || "*")
   .split(",")
