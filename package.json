@@ -1,7 +1,7 @@
 {
   "name": "do-ut-dona-backend",
-  "version": "1.7.1",
-  "description": "Backend separato per Do Ut Dona V1.7.1 diagnostica OpenAI",
+  "version": "1.7.2",
+  "description": "Backend Do Ut Dona senza OpenAI SDK, con fetch nativo e no gzip per evitare ERR_STREAM_PREMATURE_CLOSE",
   "type": "module",
   "main": "server.js",
   "scripts": {
@@ -10,8 +10,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "openai": "^4.85.1"
+    "express": "^4.21.2"
   },
   "engines": {
     "node": ">=18"
