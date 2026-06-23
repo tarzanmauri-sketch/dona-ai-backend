@@ -1,7 +1,7 @@
 {
-  "name": "dona-ai-backend",
-  "version": "1.1.0",
-  "description": "Backend separato per Dona AI parlante",
+  "name": "do-ut-dona-backend",
+  "version": "1.2.0",
+  "description": "Backend separato per Do Ut Dona",
   "type": "module",
   "main": "server.js",
   "scripts": {
