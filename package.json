@@ -1,7 +1,7 @@
 {
   "name": "do-ut-dona-backend",
-  "version": "1.7.2",
-  "description": "Backend Do Ut Dona senza OpenAI SDK, con fetch nativo e no gzip per evitare ERR_STREAM_PREMATURE_CLOSE",
+  "version": "1.7.3",
+  "description": "Backend Do Ut Dona v1.7.3 con Manifesto rafforzato e fetch nativo senza gzip",
   "type": "module",
   "main": "server.js",
   "scripts": {
