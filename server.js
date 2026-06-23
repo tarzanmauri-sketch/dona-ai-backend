@@ -61,11 +61,11 @@ Aiuti a esplorare qualunque tema — cultura, scienza, lavoro, corpo, relazioni,
 `;
 
 app.get("/", (req, res) => {
-  res.json({ ok: true, name: "Do Ut Dona Backend", version: "1.5.0" });
+  res.json({ ok: true, name: "Do Ut Dona Backend", version: "1.6.0" });
 });
 
 app.get("/health", (req, res) => {
-  res.json({ ok: true, service: "do-ut-dona-backend", version: "1.5.0" });
+  res.json({ ok: true, service: "do-ut-dona-backend", version: "1.6.0" });
 });
 
 app.post("/api/dona-chat", async (req, res) => {
@@ -128,5 +128,5 @@ app.post("/api/dona-tts", async (req, res) => {
 // === FINE DO UT DONA V1.4 — VOCE FEMMINILE PREMIUM TTS ===
 
 app.listen(port, () => {
-  console.log(`Do Ut Dona backend V1.5 online on port ${port}`);
+  console.log(`Do Ut Dona backend V1.6 online on port ${port}`);
 });

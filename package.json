@@ -1,7 +1,7 @@
 {
   "name": "do-ut-dona-backend",
-  "version": "1.5.0",
-  "description": "Backend separato per Do Ut Dona con TTS e frontend avatar donna parlante",
+  "version": "1.6.0",
+  "description": "Backend separato per Do Ut Dona V1.6 standalone fix logo/avatar/backend",
   "type": "module",
   "main": "server.js",
   "scripts": {
