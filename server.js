@@ -61,11 +61,11 @@ Aiuti a esplorare qualunque tema — cultura, scienza, lavoro, corpo, relazioni,
 `;
 
 app.get("/", (req, res) => {
-  res.json({ ok: true, name: "Do Ut Dona Backend", version: "1.2.0" });
+  res.json({ ok: true, name: "Do Ut Dona Backend", version: "1.5.0" });
 });
 
 app.get("/health", (req, res) => {
-  res.json({ ok: true, service: "do-ut-dona-backend", version: "1.2.0" });
+  res.json({ ok: true, service: "do-ut-dona-backend", version: "1.5.0" });
 });
 
 app.post("/api/dona-chat", async (req, res) => {
@@ -100,6 +100,33 @@ app.post("/api/dona-chat", async (req, res) => {
   }
 });
 
+
+// === DO UT DONA V1.4 — VOCE FEMMINILE PREMIUM TTS ===
+app.post("/api/dona-tts", async (req, res) => {
+  try{
+    const text = String(req.body?.text || "").trim().slice(0, 3500);
+    if(!text){
+      return res.status(400).json({ error: "Testo mancante." });
+    }
+
+    const speech = await openai.audio.speech.create({
+      model: process.env.OPENAI_TTS_MODEL || "gpt-4o-mini-tts",
+      voice: process.env.OPENAI_TTS_VOICE || "shimmer",
+      input: text,
+      response_format: "mp3"
+    });
+
+    const audioBuffer = Buffer.from(await speech.arrayBuffer());
+    res.json({
+      audio: "data:audio/mpeg;base64," + audioBuffer.toString("base64")
+    });
+  }catch(error){
+    console.error("Do Ut Dona TTS error:", error);
+    res.status(500).json({ error: "Errore nella generazione voce." });
+  }
+});
+// === FINE DO UT DONA V1.4 — VOCE FEMMINILE PREMIUM TTS ===
+
 app.listen(port, () => {
-  console.log(`Do Ut Dona backend online on port ${port}`);
+  console.log(`Do Ut Dona backend V1.5 online on port ${port}`);
 });
